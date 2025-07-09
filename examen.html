@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examen Módulo Glaucoma 2025</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e0ffe0;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .container {
+            background-color: #f0fff0;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            width: 100%;
+        }
+        h1, h2 {
+            color: #2e8b57;
+            text-align: center;
+        }
+        .header-info {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #4682b4;
+        }
+        .question-block {
+            margin-bottom: 25px;
+            padding: 15px;
+            background-color: #f8fff8;
+            border-radius: 10px;
+            border: 1px solid #c0e0c0;
+        }
+        .question-block p {
+            font-weight: bold;
+            color: #36454F;
+            margin-bottom: 10px;
+        }
+        .options label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            cursor: pointer;
+        }
+        .options input[type="radio"],
+        .options input[type="checkbox"] {
+            margin-right: 10px;
+            border-radius: 5px;
+        }
+        .name-input {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .name-input input[type="text"] {
+            width: 80%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #a0d0a0;
+            font-size: 16px;
+        }
+        .submit-button {
+            display: block;
+            width: 200px;
+            padding: 12px 20px;
+            margin: 30px auto 0;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .submit-button:hover {
+            background-color: #45a049;
+        }
+        .results-container {
+            display: none;
+            background-color: #f0fff0;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            width: 100%;
+            margin-top: 20px;
+        }
+        .results-container h2 {
+            color: #2e8b57;
+            margin-bottom: 20px;
+        }
+        .results-summary {
+            font-size: 20px;
+            font-weight: bold;
+            color: #36454F;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .question-review {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed #c0e0c0;
+        }
+        .question-review p {
+            font-weight: bold;
+            color: #36454F;
+            margin-bottom: 5px;
+        }
+        .question-review .user-answer,
+        .question-review .correct-answer {
+            font-size: 14px;
+            margin-left: 10px;
+        }
+        .question-review .user-answer {
+            color: #007bff;
+        }
+        .question-review .correct-answer {
+            color: #28a745;
+        }
+        .question-review .incorrect-answer {
+            color: #dc3545;
+        }
+        .pdf-button {
+            display: block;
+            width: 200px;
+            padding: 12px 20px;
+            margin: 30px auto 0;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .pdf-button:hover {
+            background-color: #0056b3;
+        }
+        .question-image {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin-top: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="examContainer">
+        <h1>Examen Módulo Glaucoma 2025</h1>
+        <div class="header-info">
+            <p>Fecha: 14/07/2025</p>
+            <div class="name-input">
+                <label for="fullName">Nombre y apellido:</label>
+                <input type="text" id="fullName" name="fullName" required>
+            </div>
+        </div>
+
+        <form id="glaucomaExamForm">
+            <div class="question-block">
+                <p>1. ¿Cuál de los siguientes es un factor de riesgo independiente para el desarrollo de glaucoma? (OHTS)</p>
+                <div class="options">
+                    <label><input type="radio" name="q1" value="a"> Relación copa disco elevada</label>
+                    <label><input type="radio" name="q1" value="b"> Hipertensión ocular</label>
+                    <label><input type="radio" name="q1" value="c"> Espesor corneal central menor a 555</label>
+                    <label><input type="radio" name="q1" value="d"> Edad avanzada</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <p>2. Con respecto al estudio LIGHT, ¿cuál de las siguientes es verdadera? Toda comparación en base al seguimiento en 72 meses +/- 6</p>
+                <div class="options">
+                    <label><input type="radio" name="q2" value="a"> El grupo medicación tópica progresó de hipertensión ocular a glaucoma en mayor medida que el grupo SLT</label>
+                    <label><input type="radio" name="q2" value="b"> El grupo medicación tópica requirió más cirugías filtrantes entre sus pacientes que el grupo SLT</label>
+                    <label><input type="radio" name="q2" value="c"> El grupo SLT tuvo mejor agudeza visual que el grupo medicación tópica</label>
+                    <label><input type="radio" name="q2" value="d"> El grupo SLT requirió de más drogas para control de la PIO que el grupo medicación tópica</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <p>3. Con respecto al estudio LIGHT, ¿cuál es el porcentaje aproximado de pacientes que controlan su presión sin necesidad de medicación ni cirugías filtrantes luego de 6 años de seguimiento?</p>
+                <div class="options">
+                    <label><input type="radio" name="q3" value="a"> 70%</label>
+                    <label><input type="radio" name="q3" value="b"> 50%</label>
+                    <label><input type="radio" name="q3" value="c"> 40%</label>
+                    <label><input type="radio" name="q3" value="d"> 20%</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <p>4. ¿Cuál de la siguiente es incorrecta con respecto a los pacientes con síndrome de dispersión pigmentaria / glaucoma pigmentario:</p>
+                <div class="options">
+                    <label><input type="radio" name="q4" value="a"> Tiene riesgo aumentado de desprendimiento de retina</label>
+                    <label><input type="radio" name="q4" value="b"> El lattice es un hallazgo en un 20-30% de los casos</label>
+                    <label><input type="radio" name="q4" value="c"> Pueden presentar desgarros retinales en hasta 12%</label>
+                    <label><input type="radio" name="q4" value="d"> Es frecuente ver diálisis retinales temporales</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <p>5. Ante un paciente con glaucoma marcadamente asimétrico, su sospecha principal es:</p>
+                <div class="options">
+                    <label><input type="radio" name="q5" value="a"> GPAA</label>
+                    <label><input type="radio" name="q5" value="b"> Glaucoma traumático</label>
+                    <label><input type="radio" name="q5" value="c"> Glaucoma pseudoexfoliativo</label>
+                    <label><input type="radio" name="q5" value="d"> B y C son correctas</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <p>6. Con respecto al glaucoma pseudoexfoliativo, marque la incorrecta:</p>
+                <div class="options">
+                    <label><input type="radio" name="q6" value="a"> Tiene peor pronóstico que el GPAA</label>
+                    <label><input type="radio" name="q6" value="b"> Tiene presiones altas pero estables</label>
+                    <label><input type="radio" name="q6" value="c"> Tiene rápida progresión</label>
+                    <label><input type="radio" name="q6" value="d"> Su seguimiento debe ser más frecuente que en el GPAA</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <p>7. Un ángulo ocluible es aquel en el que:</p>
+                <div class="options">
+                    <label><input type="radio" name="q7" value="a"> Se observa el cuerpo ciliar en al menos 3 cuadrantes</label>
+                    <label><input type="radio" name="q7" value="b"> Se observa el espolón escleral en al menos 3 cuadrantes</label>
+                    <label><input type="radio" name="q7" value="c"> Se observa el pliegue circular del iris en al menos 3 cuadrantes</label>
+                    <label><input type="radio" name="q7" value="d"> El trabeculado pigmentado no es visible sin indentación en en al menos 2 cuadrantes</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <p>8. Se presenta por consultorios externos una mujer de 40 años derivada al hospital por una disminución paulatina de la visión. La paciente refiere episodios de migraña a repetición (en tratamiento actualmente con antidepresivos tricíclicos) y los relaciona a la pérdida visual que experimentó en los últimos años. A la evaluación Ud observa: AVmc AO 20/20 buscando, BMC AO: CAF, VH 3, resto sp. PIO 12 mmHG AO. Papilas AO 0.8 bnr (impresionan megalopapilas y su medición con lupa de 90 Dp es de 2.5 mm). ¿Qué estudios solicita en base a su sospecha diagnóstica?</p>
+                <div class="options">
+                    <label><input type="radio" name="q8" value="a"> Glaucoma relacionado al consumo de antidepresivos tricíclicos. Solicita CV 24.2, OCT cfn, Paquimetría y escribe una nota al neurólogo solicitando que cambie el tratamiento.</label>
+                    <label><input type="radio" name="q8" value="b"> Glaucoma normotensivo. Solicita MAPA, ecodoppler vasos del cuello + de arteria y vena central de retina + ciliares posteriores cortas, perfil hemodinámico y examen neurológico, + CV 24,2 + paquimetria + OCT CFN</label>
+                    <label><input type="radio" name="q8" value="c"> No presenta glaucoma, sospecha una megalopapila y solicita CV 24.2, OCT CFN, paquimetría, HRT.</label>
+                    <label><input type="radio" name="q8" value="d"> La paciente presenta deterioros del campo visual relacionados a los episodios de migraña. Le explica que son de recuperación completa luego de cada episodio.</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <p>9. Señale las estructuras del seno camerular de anterior a posterior:</p>
+                <div class="options">
+                    <label><input type="radio" name="q9" value="a"> Trabéculo, línea de Schwalbe, espolón escleral, cuerpo ciliar</label>
+                    <label><input type="radio" name="q9" value="b"> Línea de Schwalbe, trabéculo, espolón escleral, banda del cuerpo ciliar</label>
+                    <label><input type="radio" name="q9" value="c"> Espolón escleral, banda del cuerpo ciliar, trabéculo, línea de Schwalbe</label>
+                    <label><input type="radio" name="q9" value="d"> Línea de Schwalbe, espolón escleral, trabéculo, banda del cuerpo ciliar.</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <p>10. Al evaluar el NO de una persona, Ud pensará que podrá tener un daño glaucomatoso si presenta alguna de las siguientes características:</p>
+                <div class="options">
+                    <label><input type="radio" name="q10" value="a"> Aumento localizado y/o generalizado de la excavación</label>
+                    <label><input type="radio" name="q10" value="b"> Verticalización de la excavación por pérdidas del ANR superior e inferior</label>
+                    <label><input type="radio" name="q10" value="c"> Palidez del anillo neurorretinal</label>
+                    <label><input type="radio" name="q10" value="d"> A + B son correctas</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <p>11. ¿Dónde se localiza la producción real del humor acuoso dentro de los procesos ciliares?</p>
+                <div class="options">
+                    <label><input type="radio" name="q11" value="a"> Células epiteliares no pigmentadas internas</label>
+                    <label><input type="radio" name="q11" value="b"> Células epiteliares pigmentadas</label>
+                    <label><input type="radio" name="q11" value="c"> Capilares fenetrados</label>
+                    <label><input type="radio" name="q11" value="d"> Estroma circundante</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <p>12. ¿Cuál de los siguientes antiglaucomatosos tópicos debe evitarse en lactantes y niños pequeños por tener efectos adversos en el SNC?</p>
+                <div class="options">
+                    <label><input type="radio" name="q12" value="a"> Brimonidina</label>
+                    <label><input type="radio" name="q12" value="b"> Timolol</label>
+                    <label><input type="radio" name="q12" value="c"> Brimatoprost</label>
+                    <label><input type="radio" name="q12" value="d"> Dorzolamida</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <p>13. Previo a la realización de una IP se puede utilizar un hipotensor para disminuir la chance de pico hipertensivo post procedimiento. ¿Cuál es el fármaco de elección?</p>
+                <div class="options">
+                    <label><input type="radio" name="q13" value="a"> Latanoprost</label>
+                    <label><input type="radio" name="q13" value="b"> Brimonidina</label>
+                    <label><input type="radio" name="q13" value="c"> Dorzolamida</label>
+                    <label><input type="radio" name="q13" value="d"> Pilocarpina</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <p>14. Durante la realización de una ciclodestrucción, ¿qué horas deben evitarse? MARQUE MAS DE UNA OPCION</p>
+                <div class="options">
+                    <label><input type="checkbox" name="q14" value="a"> 2</label>
+                    <label><input type="checkbox" name="q14" value="b"> 3</label>
+                    <label><input type="checkbox" name="q14" value="c"> 5</label>
+                    <label><input type="checkbox" name="q14" value="d"> 9</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <p>15. ¿A partir de qué edad se considera a los glaucomas como juveniles tardíos?</p>
+                <div class="options">
+                    <label><input type="radio" name="q15" value="a"> 5 años</label>
+                    <label><input type="radio" name="q15" value="b"> 7 años</label>
+                    <label><input type="radio" name="q15" value="c"> 10 años</label>
+                    <label><input type="radio" name="q15" value="d"> 15 años</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <p>16. Con respecto a los MIGS (en especial GATT), señale la opción incorrecta</p>
+                <div class="options">
+                    <label><input type="radio" name="q16" value="a"> Es una buena opción en glaucomas moderados</label>
+                    <label><input type="radio" name="q16" value="b"> Está contraindicado en glaucomas uveíticos activos</label>
+                    <label><input type="radio" name="q16" value="c"> Es una buena opción en glaucomas avanzados</label>
+                    <label><input type="radio" name="q16" value="d"> Es en líneas generales un procedimiento seguro</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <p>17. ¿Cuál de las siguientes condiciones no es una contraindicación absoluta para la indicación de betabloqueantes tópicos en el tratamiento del glaucoma?</p>
+                <div class="options">
+                    <label><input type="radio" name="q17" value="a"> Asma</label>
+                    <label><input type="radio" name="q17" value="b"> Epoc</label>
+                    <label><input type="radio" name="q17" value="c"> Diabetes</label>
+                    <label><input type="radio" name="q17" value="d"> Bradicardia sintomática</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <p>18. ¿Cuál de las siguientes es contraindicación para realizar SLT?</p>
+                <div class="options">
+                    <label><input type="radio" name="q18" value="a"> GPAA</label>
+                    <label><input type="radio" name="q18" value="b"> Glaucoma cortisónico</label>
+                    <label><input type="radio" name="q18" value="c"> Hipertensión ocular</label>
+                    <label><input type="radio" name="q18" value="d"> Glaucoma congénito</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <p>19. En relación con los glaucomas traumáticos, ¿Cuál de las siguientes condiciones no corresponde a glaucomas de inicio temprano?</p>
+                <div class="options">
+                    <label><input type="radio" name="q19" value="a"> Receso angular</label>
+                    <label><input type="radio" name="q19" value="b"> Contusión</label>
+                    <label><input type="radio" name="q19" value="c"> Hipema</label>
+                    <label><input type="radio" name="q19" value="d"> Relacionado a cristalino (facogénicos)</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <p>20. ¿Cuál de las siguientes es indicación de dispositivos de drenaje en glaucoma?</p>
+                <div class="options">
+                    <label><input type="radio" name="q20" value="a"> Trabeculectomía previa fracasada</label>
+                    <label><input type="radio" name="q20" value="b"> Glaucoma neovascular</label>
+                    <label><input type="radio" name="q20" value="c"> Glaucoma congénito</label>
+                    <label><input type="radio" name="q20" value="d"> Todas son correctas</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <p>21. ¿Cuál de los siguientes es un dispositivo de drenaje valvulado?</p>
+                <div class="options">
+                    <label><input type="radio" name="q21" value="a"> Molteno</label>
+                    <label><input type="radio" name="q21" value="b"> Baerveldt</label>
+                    <label><input type="radio" name="q21" value="c"> Paul</label>
+                    <label><input type="radio" name="q21" value="d"> Ahmed</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <p>22. A las 24 horas de realizada una trabeculectomía el paciente se presenta con: PIO 5 mmHg, CA: atalamia, Ampolla: plana. ¿Cuál de los siguientes es su diagnóstico presuntivo?</p>
+                <div class="options">
+                    <label><input type="radio" name="q22" value="a"> Glaucoma maligno</label>
+                    <label><input type="radio" name="q22" value="b"> Ampolla encapsulada</label>
+                    <label><input type="radio" name="q22" value="c"> Fístula obstruida</label>
+                    <label><input type="radio" name="q22" value="d"> Desprendimiento coroideo</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <p>23. Su segundo paciente de la tanda concurre de la siguiente manera a las 24 horas: PIO 5 mmHg; CA atalamia; Ampolla: muy elevada. ¿Cuál de los siguientes es su diagnóstico presuntivo?</p>
+                <div class="options">
+                    <label><input type="radio" name="q23" value="a"> Glaucoma maligno</label>
+                    <label><input type="radio" name="q23" value="b"> Hiperfiltración</label>
+                    <label><input type="radio" name="q23" value="c"> Fístula obstruida</label>
+                    <label><input type="radio" name="q23" value="d"> Desprendimiento coroideo</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <p>24. Su tercer paciente concurre de la siguiente manera (usted ya se replantea su capacidad técnica para la realización de cirugía filtrante): PIO 35 mmHg; CA: plana; Ampolla: plana. ¿Cuál de los siguientes es su diagnóstico presuntivo?</p>
+                <div class="options">
+                    <label><input type="radio" name="q24" value="a"> Glaucoma maligno</label>
+                    <label><input type="radio" name="q24" value="b"> Hiperfiltración</label>
+                    <label><input type="radio" name="q24" value="c"> Fístula obstruida</label>
+                    <label><input type="radio" name="q24" value="d"> Ampolla encapsulada</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <p>25. ¿Con qué valores de PIO de forma sostenida se define la hipotonía ocular luego de una trabeculectomía?</p>
+                <div class="options">
+                    <label><input type="radio" name="q25" value="a"> Menores a 8 mmHg</label>
+                    <label><input type="radio" name="q25" value="b"> Menores a 5 mmHg</label>
+                    <label><input type="radio" name="q25" value="c"> 0 mmHg</label>
+                    <label><input type="radio" name="q25" value="d"> Menores o iguales a 10 mmHg</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <p>26. ¿Qué estructura está marcando la flecha en la siguiente imagen?</p>
+                <img src="images/26.png" alt="Imagen pregunta 26" class="question-image">
+                <div class="options">
+                    <label><input type="radio" name="q26" value="a"> Trabeculado pigmentado</label>
+                    <label><input type="radio" name="q26" value="b"> Espolón escleral</label>
+                    <label><input type="radio" name="q26" value="c"> Línea de Schwalbe</label>
+                    <label><input type="radio" name="q26" value="d"> Cuerpo ciliar</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <p>27. Con relación a la siguiente imagen, ¿cuál sería su diagnóstico presuntivo?</p>
+                <img src="images/27.png" alt="Imagen pregunta 27" class="question-image">
+                <div class="options">
+                    <label><input type="radio" name="q27" value="a"> Ángulo estrecho</label>
+                    <label><input type="radio" name="q27" value="b"> Ángulo no ocluible</label>
+                    <label><input type="radio" name="q27" value="c"> Iris plateau</label>
+                    <label><input type="radio" name="q27" value="d"> Quiste ciliar</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <p>28. ¿En cuál de las siguientes patologías la OCT CFN pierde relevancia para el diagnóstico y/o seguimiento del glaucoma?</p>
+                <div class="options">
+                    <label><input type="radio" name="q28" value="a"> Diabetes</label>
+                    <label><input type="radio" name="q28" value="b"> Miopía magna</label>
+                    <label><input type="radio" name="q28" value="c"> Nanoftalmos</label>
+                    <label><input type="radio" name="q28" value="d"> Uveítis</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <p>29. Con qué nombre describiría el patrón de CVC de la siguiente imagen?</p>
+                <img src="images/29.png" alt="Imagen pregunta 29" class="question-image">
+                <div class="options">
+                    <label><input type="radio" name="q29" value="a"> Escotoma arcuato superior</label>
+                    <label><input type="radio" name="q29" value="b"> Escotoma paracentral</label>
+                    <label><input type="radio" name="q29" value="c"> Agrandamiento de mancha ciega</label>
+                    <label><input type="radio" name="q29" value="d"> Escalón nasal</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <p>30. Con qué nombre describiría el patrón de CVC de la siguiente imagen?</p>
+                <img src="images/30.png" alt="Imagen pregunta 30" class="question-image">
+                <div class="options">
+                    <label><input type="radio" name="q30" value="a"> Escotoma arcuato superior</label>
+                    <label><input type="radio" name="q30" value="b"> Escotoma paracentral</label>
+                    <label><input type="radio" name="q30" value="c"> Agrandamiento de mancha ciega</label>
+                    <label><input type="radio" name="q30" value="d"> Escalón nasal</label>
+                </div>
+            </div>
+
+            <button type="button" class="submit-button" onclick="submitExam()">Finalizar examen</button>
+        </form>
+    </div>
+
+    <div class="results-container" id="resultsContainer">
+        <h2>Resultados del Examen</h2>
+        <div class="results-summary" id="resultsSummary"></div>
+        <div id="examReview"></div>
+        <button type="button" class="pdf-button" onclick="generatePdf()">Guardar como PDF</button>
+    </div>
+
+    <script>
+        const correctAnswers = {
+            q1: 'c',
+            q2: 'b',
+            q3: 'a',
+            q4: 'd',
+            q5: 'd',
+            q6: 'b',
+            q7: 'd',
+            q8: 'b',
+            q9: 'b',
+            q10: 'd',
+            q11: 'a',
+            q12: 'a',
+            q13: 'b',
+            q14: ['b', 'd'],
+            q15: 'c',
+            q16: 'c',
+            q17: 'c',
+            q18: 'd',
+            q19: 'a',
+            q20: 'd',
+            q21: 'd',
+            q22: 'd',
+            q23: 'c',
+            q24: 'a',
+            q25: 'b',
+            q26: 'c',
+            q27: 'c',
+            q28: 'b',
+            q29: 'a',
+            q30: 'd'
+        };
+
+        function submitExam() {
+            const fullName = document.getElementById('fullName').value.trim();
+            if (!fullName) {
+                alert('Por favor, ingresa tu Nombre y apellido para continuar.');
+                return;
+            }
+
+            if (!confirm('¿Está seguro que quiere finalizar y enviar examen?')) {
+                return;
+            }
+
+            const form = document.getElementById('glaucomaExamForm');
+            let correctCount = 0;
+            const totalQuestions = Object.keys(correctAnswers).length;
+            let unansweredQuestions = [];
+            let userAnswers = {};
+
+            for (let i = 1; i <= totalQuestions; i++) {
+                const qName = `q${i}`;
+                let userAnswer = [];
+                let isQuestionAnswered = false;
+
+                const radioInputs = form.querySelectorAll(`input[name="${qName}"][type="radio"]`);
+                if (radioInputs.length > 0) {
+                    const selected = form.elements[qName].value;
+                    if (selected) {
+                        userAnswer.push(selected);
+                        isQuestionAnswered = true;
+                    }
+                } else {
+                    const checkboxes = form.querySelectorAll(`input[name="${qName}"][type="checkbox"]:checked`);
+                    for (let j = 0; j < checkboxes.length; j++) {
+                        userAnswer.push(checkboxes[j].value);
+                        isQuestionAnswered = true;
+                    }
+                }
+                
+                if (!isQuestionAnswered) {
+                    unansweredQuestions.push(i);
+                }
+                userAnswers[qName] = userAnswer;
+            }
+
+            if (unansweredQuestions.length > 0) {
+                alert(`Tiene preguntas sin completar: ${unansweredQuestions.join(', ')}. Por favor, complete todas las preguntas antes de finalizar.`);
+                return;
+            }
+
+            const examReviewDiv = document.getElementById('examReview');
+            examReviewDiv.innerHTML = '';
+
+            for (let i = 1; i <= totalQuestions; i++) {
+                const qName = `q${i}`;
+                const questionBlock = document.querySelector(`.question-block:nth-of-type(${i})`);
+                const questionText = questionBlock.querySelector('p').innerText;
+                const optionsElements = questionBlock.querySelectorAll('.options label');
+                
+                let correctAns = correctAnswers[qName];
+                let userAns = userAnswers[qName];
+                
+                if (!Array.isArray(userAns)) {
+                    userAns = userAns ? [userAns] : [];
+                }
+                if (!Array.isArray(correctAns)) {
+                    correctAns = correctAns ? [correctAns] : [];
+                }
+
+                let isCorrect = false;
+                if (userAns.length === correctAns.length && userAns.every(val => correctAns.includes(val))) {
+                    isCorrect = true;
+                }
+                
+                if (isCorrect) {
+                    correctCount++;
+                }
+
+                let reviewHtml = `<div class="question-review">
+                    <p>${questionText}</p>`;
+                
+                const questionImage = questionBlock.querySelector('.question-image');
+                if (questionImage) {
+                    reviewHtml += `<img src="${questionImage.src}" alt="${questionImage.alt}" class="question-image" style="width: 150px; height: auto;">`;
+                }
+
+                optionsElements.forEach((label) => {
+                    const optionInput = label.querySelector('input');
+                    const optionValue = optionInput.value;
+                    const optionText = label.innerText.replace(optionInput.value, '').trim();
+
+                    let optionClass = '';
+                    let indicator = '';
+
+                    if (userAns.includes(optionValue)) {
+                        if (correctAns.includes(optionValue)) {
+                            optionClass = 'user-answer correct-answer';
+                            indicator = ' (Tu respuesta - Correcta)';
+                        } else {
+                            optionClass = 'user-answer incorrect-answer';
+                            indicator = ' (Tu respuesta - Incorrecta)';
+                        }
+                    } else if (correctAns.includes(optionValue)) {
+                        optionClass = 'correct-answer';
+                        indicator = ' (Correcta)';
+                    }
+                    
+                    reviewHtml += `<div class="${optionClass}">${optionValue.toUpperCase()}. ${optionText}${indicator}</div>`;
+                });
+                reviewHtml += `</div>`;
+                examReviewDiv.innerHTML += reviewHtml;
+            }
+
+            const percentage = (correctCount / totalQuestions) * 100;
+            document.getElementById('resultsSummary').innerText = `Nombre: ${fullName}\nRespuestas correctas: ${correctCount}/${totalQuestions}\nPorcentaje: ${percentage.toFixed(2)}%`;
+
+            document.getElementById('examContainer').style.display = 'none';
+            document.getElementById('resultsContainer').style.display = 'block';
+        }
+
+        async function generatePdf() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF('p', 'mm', 'a4');
+
+            doc.setFontSize(22);
+            doc.setTextColor(46, 139, 87);
+            doc.text("Examen Módulo Glaucoma 2025", 105, 20, null, null, 'center');
+            doc.setFontSize(12);
+            doc.setTextColor(70, 130, 180);
+            doc.text("Fecha: 14/07/2025", 105, 28, null, null, 'center');
+            
+            const fullName = document.getElementById('fullName').value.trim();
+            doc.setFontSize(14);
+            doc.setTextColor(54, 69, 79);
+            doc.text(`Nombre y apellido: ${fullName}`, 105, 36, null, null, 'center');
+
+            doc.setFontSize(16);
+            doc.setTextColor(46, 139, 87);
+            doc.text("Resultados del Examen", 105, 50, null, null, 'center');
+
+            const resultsSummaryText = document.getElementById('resultsSummary').innerText;
+            doc.setFontSize(12);
+            doc.setTextColor(54, 69, 79);
+            doc.text(resultsSummaryText, 105, 60, null, null, 'center');
+
+            doc.addPage();
+
+            doc.setFontSize(18);
+            doc.setTextColor(46, 139, 87);
+            doc.text("Revisión del Examen", 105, 20, null, null, 'center');
+
+            const examReviewContent = document.getElementById('examReview');
+            
+            const scale = (doc.internal.pageSize.getWidth() - 20) / examReviewContent.offsetWidth;
+
+            await html2canvas(examReviewContent, { scale: scale, useCORS: true }).then(canvas => {
+                const imgData = canvas.toDataURL('image/png');
+                const imgWidth = doc.internal.pageSize.getWidth() - 20;
+                let imgHeight = canvas.height * imgWidth / canvas.width;
+                let position = 30;
+
+                let remainingHeight = imgHeight;
+                let startY = position;
+
+                while (remainingHeight > 0) {
+                    if (startY + remainingHeight > doc.internal.pageSize.getHeight() - 20) {
+                        const portionHeight = doc.internal.pageSize.getHeight() - 20 - startY;
+                        doc.addImage(imgData, 'PNG', 10, startY, imgWidth, portionHeight, undefined, 'FAST', 0, 0);
+                        doc.addPage();
+                        startY = 20;
+                        remainingHeight -= portionHeight;
+                        const sourceY = (imgHeight - remainingHeight) / scale;
+                        doc.addImage(imgData, 'PNG', 10, startY, imgWidth, remainingHeight, undefined, 'FAST', 0, sourceY);
+                    } else {
+                        doc.addImage(imgData, 'PNG', 10, startY, imgWidth, remainingHeight);
+                        remainingHeight = 0;
+                    }
+                }
+            });
+            
+            doc.save(`Examen_Glaucoma_${fullName.replace(/ /g, '_')}_${new Date().toLocaleDateString('es-ES').replace(/\//g, '-')}.pdf`);
+        }
+    </script>
+</body>
+</html>
